@@ -1,5 +1,5 @@
 
-import naivebayes
+import embayes
 
 import numpy
 from sklearn.model_selection import train_test_split
@@ -17,7 +17,7 @@ Xtest = scaler.transform(Xtest)
 print('Loading dataset. {} features', Xtrain.shape[1])
 
 print('Training Gaussian model'.format())
-model = naivebayes.Gaussian()
+model = embayes.NaiveGaussian()
 model.fit(Xtrain, ytrain)
 
 # Predict
