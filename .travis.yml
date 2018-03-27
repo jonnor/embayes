@@ -10,3 +10,11 @@ install:
 script:
 - PYTHONPATH=./:build/lib.linux-x86_64-3.6/:$PYTHONPATH pytest -v --cov=embayes --cov-report
   html --cov-report term-missing --cov-branch
+deploy:
+  provider: pypi
+  user: jonnor
+  password:
+    secure: um25TQFNAlUujr/i74LrFXwsj53l2cVkXoSggygKzVp5Swg+rtcfyaNiRwGyeO5wMqMDRE5gwJOf6ASvEuxPaCdy2wcLln0x6CGLxqdKRZdu2kG2RrMu7NaP+0wkMEExqOiDymqHxBqLw2Cs20YAl4BWC73BOL/xlNDO0OH00CyU7VECHuAM4womXPadPlPQoNeK44pytOpvuDXnzB37FyizSFDOcnW5ooevv0V9BJUJV6kuAXXV6DJU5+N9ln/GvICAB3TZ+C8Y9xCQFCKecSiOizRY99OSPWikVTJTbO1DX+Pxnfl0gpWDZGnjLiB9Dbzi/iloGxAexoZDAiDovryGcBpVlyN/P4KSgb316TZikVo4VKFVZkMjCOhsCf5w/6GfKf+w1I2dFj/aYjmL2J/IXbbCHmrM/qvS5MBkr/HvHklS3iCT5k0TSP7Tgd6B+jvpKdKSy6evEFwz+mACPgDuKJki0gpcebpuWq1/OAPu2RgT8OgPL6O7RQlw95Rw6p++lydc5ogdfd6Z8HpO3omnyZvnE9Oz8AhT5ANw5VjuVeDTF0Yp+76eHwybq73QD4v8k3YMAbudcigPtM5SyG3+xBcgnF6eZj7B2GbmHK8oTLcd3go5dlhEDcGncuu4THDBMjx7rDU9Z/TvPzIgDlG28h8TxFIjopmiZvyBK7g=
+  on:
+    tags: true
+    repo: jonnor/embayes
