@@ -31,10 +31,9 @@ Convenient Training
 
 ## Installing
 
-Install from git
+Install from PyPI
 
-    git clone https://github.com/jonnor/embayes
-    python3 setup.py install --user
+    pip install embayes --user
 
 ## Usage
 
