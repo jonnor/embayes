@@ -3,6 +3,8 @@
 Bayesian machine learning classifiers for embedded systems.
 Train in Python, deploy on microcontroller.
 
+Want decision trees instead? Go to [emtrees](https://github.com/jonnor/emtrees)
+
 ## Key features
 
 Embedded-friendly Classifier
