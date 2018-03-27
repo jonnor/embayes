@@ -7,36 +7,36 @@ import sklearn
 import numpy
 from sklearn import datasets
 from sklearn import model_selection
+from sklearn import preprocessing
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
 from sklearn.utils.estimator_checks import check_estimator 
 
 import embayes
+import pytest
 
-
-
-def build_classifier(estimator, name='test_trees', temp_dir='tmp/', func=None):
+def build_classifier(estimator, name='test_bayes', temp_dir='tmp/', func=None):
     if not os.path.exists(temp_dir):
         os.makedirs(temp_dir)
 
     tree_name = name
     if func is None:
-      func = 'emtrees_predict(&{}, values, length)'.format(tree_name)
+      func = 'embayes_predict(&{}_model, values, length)'.format(tree_name)
     def_file = os.path.join(temp_dir, name+'.def.h')
     code_file = os.path.join(temp_dir, name+'.c')
     bin_path = os.path.join(temp_dir, name)
 
     # Trivial program that reads values on stdin, and returns classifications on stdout
     code = """
-    #include "emtrees_test.h"
+    #include "embayes_test.h"
     #include "{def_file}"
 
-    static void classify(const EmtreesValue *values, int length, int row) {{
+    static void classify(const val_t *values, int length, int row) {{
         const int32_t class = {func};
         printf("%d,%d\\n", row, class);
     }}
     int main() {{
-        emtrees_test_read_csv(stdin, classify);
+        embayes_test_read_csv(stdin, classify);
     }}
     """.format(**locals())
 
@@ -71,30 +71,29 @@ def run_classifier(bin_path, data):
 
     return classes
 
-def test_naivegaussian_api():
-   #check_estimator(embayes.NaiveGaussian)
-   pass
+@pytest.mark.skip('Not fully compatible yet')
+def test_sklearn_api_naivegaussian():
+   check_estimator(embayes.NaiveGaussian)
 
 
 def test_basic_binary_classification():
-    return # FIXME: implement
+    dataset = datasets.load_breast_cancer()
+    X, Y = dataset.data, dataset.target
+    estimator = embayes.NaiveGaussian()
+    scores = model_selection.cross_val_score(estimator, X, Y, scoring='accuracy')
 
-    X, Y = datasets.make_classification(n_classes=2, n_samples=1000)
-    trees = embayes.NaiveGaussian(n_estimators=10, max_depth=10)
-    X = (X * 2**16).astype(int) # convert to integer
-    scores = model_selection.cross_val_score(trees, X, Y, scoring='accuracy')
-
-    assert numpy.mean(scores) > 0.7, scores
+    assert numpy.mean(scores) > 0.9, scores
 
 def test_binary_classification_compiled():
-    return  # FIXME: implement
 
-    X, Y = datasets.make_classification(n_classes=2)
-    trees = embayes.NaiveGaussian(n_estimators=3, max_depth=5)
-    X = (X * 2**16).astype(int) # convert to integer
-    trees.fit(X, Y)
+    dataset = datasets.load_breast_cancer()
+    X, Y = dataset.data, dataset.target
+    scaler = preprocessing.StandardScaler()
+    X = scaler.fit_transform(X)
+    estimator = embayes.NaiveGaussian()
+    estimator.fit(X, Y)
 
-    p = build_classifier(trees)
+    p = build_classifier(estimator)
     predicted = run_classifier(p, X)
     accuracy = metrics.accuracy_score(Y, predicted)
 

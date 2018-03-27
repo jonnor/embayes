@@ -42,11 +42,6 @@ See [examples/cancer.py](./examples/cancer.py) and [embayes.ino](./embayes.ino)
 
 ## TODO
 
-0.1
-
-* Add basic automated tests
-* Release on PyPI
-
 0.2
 
 * Make estimator a wrapper around `sklearn.naivebayes.GaussianNB`

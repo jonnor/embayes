@@ -113,7 +113,7 @@ embayes_logpdf(val_t x, val_t mean, val_t std, val_t stdlog2)
 
 
 int32_t
-embayes_predict(BayesModel *model, val_t values[], int32_t values_length) {
+embayes_predict(BayesModel *model, const val_t values[], int32_t values_length) {
    //printf("predict(%d), classes=%d features=%d\n",
    //      values_length, model->n_classes, model->n_features);
 

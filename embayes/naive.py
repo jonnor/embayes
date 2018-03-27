@@ -52,9 +52,29 @@ def generate_c(model, name='myclassifier'):
 
     return '\n\n'.join([summaries, model]) 
 
+
 class Gaussian(object):
     def __init__(self):
-        pass
+        self._estimator_type = 'classifier'
+        self._param_names = []
+
+    def get_params(self, deep=False):
+        params = {}
+        for name in self._param_names:
+            params[name] = getattr(self, name)
+        #child_params = self._estimator.get_params(deep)
+        #child_params = { k: v for k, v in child_params.items() if k not in self._unsupported_params }
+        #params.update(child_params)
+        return params
+
+    def set_params(self, **params):
+        our_keys = set(params.keys()).intersection(self._param_names)
+        #external_keys = set(params.keys()).difference(our_keys)
+        #theirs = { k: params[k] for k in external_keys }
+        #self._estimator.set_params(**theirs)
+        for k in our_keys:
+            setattr(self, k, params[v])
+        return self
 
     def fit(self, X, y):
         separated = [[x for x, t in zip(X, y) if t == c] for c in numpy.unique(y)]
