@@ -1,0 +1,6 @@
+*.pyc
+*.so
+*.dll
+.pytest_cache/
+build/
+tmp/
