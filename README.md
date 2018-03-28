@@ -29,7 +29,9 @@ Convenient Training
 
 * Gaussian Naive Bayes classifier implemented
 * Tested running on ESP8266 and Linux.
-* On ESP8266, 2 classes and 30 features classify in under 0.5ms
+* On ESP8266, 2 classes and 30 features classify in under 0.5ms.
+Thanks mostly to a [Simplified probability calculation](./doc/Probability Density Function.ipynb).
+
 
 ## Installing
 
