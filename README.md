@@ -30,8 +30,9 @@ Convenient Training
 * Gaussian Naive Bayes classifier implemented
 * Tested running on ESP8266 and Linux.
 * On ESP8266, 2 classes and 30 features classify in under 0.5ms.
-Thanks mostly to a [Simplified probability calculation](./doc/Probability Density Function.ipynb).
+Thanks mostly to a [Simplified probability calculation][1].
 
+[1]: https://github.com/jonnor/embayes/blob/master/doc/Probability%20Density%20Function.ipynb
 
 ## Installing
 
@@ -49,10 +50,9 @@ See [examples/cancer.py](./examples/cancer.py) and [embayes.ino](./embayes.ino)
 
 * Make estimator a wrapper around `sklearn.naivebayes.GaussianNB`
 * Make estimator work in sklearn pipeline
-* Make `pdf` approximation configurable as parameter
+* Support generating inline C code, not needing model coefficients in RAM
 
 1.0
 
-* Support generating inline C code, not needing model coefficients in RAM
 * Support de/serializing coefficients at runtime
 * Support training on microcontroller
